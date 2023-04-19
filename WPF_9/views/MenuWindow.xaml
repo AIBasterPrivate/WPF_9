@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp7.views.MenuViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp7.views"
+        mc:Ignorable="d"
+        Title="MenuViewWindow" Height="481" Width="356">
+    <Grid Margin="0,0,0,-39">
+        <Button x:Name="EncButton" Content="Encrypt" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="EncButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="DecButton" Content="Decrypt" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="DecButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Center" Margin="0,316,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="ExitButton_Click" FontSize="48" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

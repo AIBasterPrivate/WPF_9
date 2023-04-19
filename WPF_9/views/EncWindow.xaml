@@ -1,0 +1,16 @@
+﻿<Window x:Class="WPF_9.views.EncWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_9.views"
+        mc:Ignorable="d"
+        Title="EncWindow" Height="450" Width="622">
+    <Grid>
+        <Button x:Name="FindVideoFile" Content="Open video" HorizontalAlignment="Left" Margin="30,26,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="FindVideoFile_Click"/>
+        <TextBox x:Name="UserDataInputTextBox" HorizontalAlignment="Left" Margin="245,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="353" Height="382" FontSize="18"/>
+        <Button x:Name="EncryptButton" Content="Encrypt into video" HorizontalAlignment="Left" Margin="30,172,0,0" VerticalAlignment="Top" Height="118" Width="169" Click="EncryptButton_Click"/>
+        <Button x:Name="ExitButton" Content="Close" HorizontalAlignment="Left" Margin="30,318,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="ExitButton_Click"/>
+
+    </Grid>
+</Window>
