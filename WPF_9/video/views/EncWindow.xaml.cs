@@ -7,6 +7,7 @@ using WPF_9.security.models;
 using WPF_9.security.service;
 using WPF_9.views.viewsmodels;
 using WPF_9.video.views.models;
+using WPF_9.image.service;
 
 namespace WPF_9.video.views
 {
@@ -57,12 +58,12 @@ namespace WPF_9.video.views
         
         private void EncryptButton_Click(object sender, RoutedEventArgs e)
         {
-            if(UserDataInputTextBox.Text == "")
+            if (UserDataInputTextBox.Text == "")
             {
                 MessageBox.Show("Enter the text to start the encryption");
                 return;
             }
-            if(_enc.InPath == null)
+            if (_enc.InPath == null)
             {
                 MessageBox.Show("Select the video file where the text will be encrypted");
                 return;
@@ -80,7 +81,22 @@ namespace WPF_9.video.views
             }
 
             _enc.Data = UserDataInputTextBox.Text;
+            byte[] encryptedText = Encryption();
+            encryptedText = AddStopBytes(encryptedText);
+            FFmpegVideo_v2.Embending(_enc.InPath, _enc.OutPath, encryptedText);
 
+            MessageBox.Show("Your text has been successfully inserted into the video");
+        }
+
+        private static byte[] AddStopBytes(byte[] encryptedText)
+        {
+            var emb = new ARGBImageEmbending();
+            encryptedText = emb.AddStopBytes(encryptedText);
+            return encryptedText;
+        }
+
+        private byte[] Encryption()
+        {
             var aesModel = Aes256Model.Load("configs\\appconfig.json");
             aesModel.Encoding = _enc.Encoding;
             var aes = new Aes256(aesModel);
@@ -89,15 +105,13 @@ namespace WPF_9.video.views
             var hashInBytes = BitConverter.GetBytes(hash);
 
             var fullData = Encoding.Unicode.GetBytes(_enc.Data);
-            Array.Resize( ref fullData, fullData.Length + 4);
+            Array.Resize(ref fullData, fullData.Length + 4);
             fullData[fullData.Length - 4] = hashInBytes[0];
             fullData[fullData.Length - 3] = hashInBytes[1];
             fullData[fullData.Length - 2] = hashInBytes[2];
             fullData[fullData.Length - 1] = hashInBytes[3];
             byte[] encryptedText = aes.Encrypt(fullData);
-            FFmpegVideo_v2.Embending(_enc.InPath, _enc.OutPath, encryptedText);
-
-            MessageBox.Show("Your text has been successfully inserted into the video");
+            return encryptedText;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

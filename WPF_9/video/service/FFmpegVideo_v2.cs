@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using WPF_9.image.service;
 using WPF_9.video.models;
 
 namespace WPF_9.video.service
@@ -15,9 +16,7 @@ namespace WPF_9.video.service
 
         public static void Embending(string inPath, string outPath, byte[] data)
         {
-            Array.Resize(ref data, data.Length + 2);
-            data[data.Length - 2] = stopBytes[0];
-            data[data.Length - 1] = stopBytes[1];
+            //data = AddStopBytes(data);
 
             using (var reader = new VideoFileReader())
             {
@@ -43,21 +42,14 @@ namespace WPF_9.video.service
                             {
                                 for (int x = 0; x < width; x++)
                                 {
-                                    var pixel = bitmap.GetPixel(x, y);
-
                                     if (pixelIndex < data.Length)
                                     {
-                                        var databyte = data[dataIndex++];
-                                        int r, g, b;
-                                        r = (pixel.R & 0b11111000) | (databyte >> 5 & 0b111);
-                                        g = ((pixel.G >> 2) << 2) | (databyte >> 3 & 0b11);
-                                        b = ((pixel.B >> 3) << 3) | (databyte & 0b111);
-                                        var newPixel = Color.FromArgb(pixel.A, r, g, b);
-
-                                        bitmap.SetPixel(x, y, newPixel);
+                                        ARGBImageEmbending emb = new ARGBImageEmbending();
+                                        var embedPixel = emb.InsertDataToPixel(bitmap.GetPixel(x, y), data[dataIndex++]);
+                                        bitmap.SetPixel(x, y, embedPixel);
                                     }
-
                                     pixelIndex++;
+
                                 }
                             }
                         }
@@ -71,6 +63,14 @@ namespace WPF_9.video.service
                 reader.Close();
             }
 
+        }
+
+        private static byte[] AddStopBytes(byte[] data)
+        {
+            Array.Resize(ref data, data.Length + 2);
+            data[data.Length - 2] = stopBytes[0];
+            data[data.Length - 1] = stopBytes[1];
+            return data;
         }
 
         public static byte[] UnEmbending(string path)
@@ -87,11 +87,8 @@ namespace WPF_9.video.service
                     {
                         for (int x = 0; x < frame.Width; x++)
                         {
-                            int r = (frame.GetPixel(x, y).R & 0b111) << 5;
-                            int g = (frame.GetPixel(x, y).G & 0b11) << 3;
-                            int b = frame.GetPixel(x, y).B & 0b111;
-
-                            int dataByte = r | g | b;
+                            var emb = new ARGBImageEmbending();
+                            int dataByte = emb.SelectByteFromPixel(frame, x, y);
                             data.Add((byte)dataByte);
 
                             if (data.Count >= stopBytes.Length &&
@@ -111,10 +108,10 @@ namespace WPF_9.video.service
                 }
                 reader.Close();
 
-                if (stopBytesFound)
-                {
-                    data.RemoveRange(data.Count - stopBytes.Length, stopBytes.Length);
-                }
+                //if (stopBytesFound)
+                //{
+                //    data.RemoveRange(data.Count - stopBytes.Length, stopBytes.Length);
+                //}
 
                 return data.ToArray();
             }

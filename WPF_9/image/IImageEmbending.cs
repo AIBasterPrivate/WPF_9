@@ -11,6 +11,5 @@ namespace WPF_9.image
         Bitmap Embending(IARGBImage image,byte[] data);
         byte[] UnEmbending(IARGBImage image);
         
-
     }
 }

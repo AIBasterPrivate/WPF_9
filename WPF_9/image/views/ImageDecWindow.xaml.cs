@@ -72,16 +72,12 @@ namespace WPF_9.image.views
                 return;
             }
             var model = new ARGBImageModel((Bitmap)Bitmap.FromFile(_dec.InPath));
-            var encDataBytes = new ARGBImageEmbending().UnEmbending(model);
-            var aesModel = Aes256Model.Load("configs\\appconfig.json");
-            aesModel.Encoding = _dec.Encoding;
-            var aes = new Aes256(aesModel);
-            var dataBytes = aes.Decrypt(encDataBytes);
-            var oneNumberSizeInBytes = new byte[4];
-            Array.Copy(dataBytes, dataBytes.Length - 4, oneNumberSizeInBytes, 0, 4);
-            var hashFromFile = BitConverter.ToInt32(oneNumberSizeInBytes, 0);
+            Aes256 aes;
+            byte[] dataBytes;
+            byte[] encDataBytes = UnEmbing(model);
 
-            Array.Resize(ref dataBytes, dataBytes.Length - 4);
+            Decrypting(encDataBytes, out aes, out dataBytes);
+            int hashFromFile = SelectHashBytes(ref dataBytes);
 
             var dataHash = aes.GenHashCode(dataBytes);
             if (hashFromFile != dataHash)
@@ -93,6 +89,32 @@ namespace WPF_9.image.views
             _dec.Data = _dec.Encoding.GetString(dataBytes);
 
             DecryptedTextBox.Text = _dec.Data;
+        }
+
+        private static int SelectHashBytes(ref byte[] dataBytes)
+        {
+            var oneNumberSizeInBytes = new byte[4];
+            Array.Copy(dataBytes, dataBytes.Length - 4, oneNumberSizeInBytes, 0, 4);
+            var hashFromFile = BitConverter.ToInt32(oneNumberSizeInBytes, 0);
+
+            Array.Resize(ref dataBytes, dataBytes.Length - 4);
+            return hashFromFile;
+        }
+
+        private void Decrypting(byte[] encDataBytes, out Aes256 aes, out byte[] dataBytes)
+        {
+            var aesModel = Aes256Model.Load("configs\\appconfig.json");
+            aesModel.Encoding = _dec.Encoding;
+            aes = new Aes256(aesModel);
+            dataBytes = aes.Decrypt(encDataBytes);
+        }
+
+        private static byte[] UnEmbing(ARGBImageModel model)
+        {
+            var embending = new ARGBImageEmbending();
+            var encDataBytes = embending.UnEmbending(model);
+            encDataBytes = embending.RemoveStopBytes(encDataBytes);
+            return encDataBytes;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

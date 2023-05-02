@@ -15,8 +15,7 @@ namespace WPF_9.image.service
         public virtual Bitmap Embending(IARGBImage image, byte[] data)
         {
             CheckData(image, data);
-            data = AddStopBytes(data);
-
+            
             var copy = image.GetCopy();
             var pixelIndex = 0;
             var dataIndex = 0;
@@ -53,7 +52,7 @@ namespace WPF_9.image.service
             {
                 for (int x = 0; x < bitmap.Width; x++)
                 {
-                    var extractedByte = SelectByteFromPixel(bitmap, y, x);
+                    var extractedByte = SelectByteFromPixel(bitmap, x, y);
                     data.Add(extractedByte);
 
                     CheckIfStopBytesAreFound(data, ref stopBytesFound);
@@ -71,19 +70,16 @@ namespace WPF_9.image.service
 
             if (stopBytesFound)
             {
-                RemoveStopBytes(data);
-            }
-            else
-            {
-                throw new Exception("Stop bytes missing");
-            }
+                //RemoveStopBytes(data);
+            }           
 
             return data.ToArray();
         }
 
-        private static void RemoveStopBytes(List<byte> data)
+        public byte[] RemoveStopBytes(byte[] data)
         {
-            data.RemoveRange(data.Count - stopBytes.Length, stopBytes.Length);
+            Array.Resize(ref data, data.Length - stopBytes.Length);
+            return data;
         }
 
         private void CheckIfStopBytesAreFound(List<byte> data,ref bool stopBytesFound)
@@ -97,7 +93,7 @@ namespace WPF_9.image.service
             }
         }
 
-        public virtual byte SelectByteFromPixel( Bitmap bitmap, int y, int x)
+        public virtual byte SelectByteFromPixel( Bitmap bitmap, int x, int y)
         {
             int r = (bitmap.GetPixel(x, y).R & 0b111) << 5;
             int g = (bitmap.GetPixel(x, y).G & 0b11) << 3;
@@ -107,7 +103,7 @@ namespace WPF_9.image.service
             return (byte)dataByte;
         }
 
-        private static byte[] AddStopBytes(byte[] data)
+        public byte[] AddStopBytes(byte[] data)
         {
             Array.Resize(ref data, data.Length + 2);
             data[data.Length - 2] = stopBytes[0];

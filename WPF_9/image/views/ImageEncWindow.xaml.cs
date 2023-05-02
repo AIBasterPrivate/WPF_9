@@ -70,7 +70,8 @@ namespace WPF_9.image.views
 
             Bitmap bitmap = (Bitmap)Bitmap.FromFile(_enc.InPath);
             ARGBImageModel model = new ARGBImageModel(bitmap);
-            var totalPlaceInBytes = model.Width()*model.Height();
+
+            var totalPlaceInBytes = model.Width() * model.Height();
             var oneNumberSizeInBytes = 4;
             var dataSizeInBytes = Encoding.Unicode.GetBytes(UserDataInputTextBox.Text).Length + oneNumberSizeInBytes;
             if (totalPlaceInBytes < dataSizeInBytes)
@@ -80,7 +81,22 @@ namespace WPF_9.image.views
                 return;
             }
             _enc.Data = UserDataInputTextBox.Text;
+            Embending(model);
 
+            MessageBox.Show("Your text has been successfully inserted into the image");
+        }
+
+        private void Embending(ARGBImageModel model)
+        {
+            byte[] encryptedText = Encrypting();
+            var embending = new ARGBImageEmbending();
+            encryptedText = embending.AddStopBytes(encryptedText);
+            var embedBitmap = embending.Embending(model, encryptedText);
+            embedBitmap.Save(_enc.OutPath);
+        }
+
+        private byte[] Encrypting()
+        {
             var aesModel = Aes256Model.Load("configs\\appconfig.json");
             aesModel.Encoding = _enc.Encoding;
             var aes = new Aes256(aesModel);
@@ -89,17 +105,14 @@ namespace WPF_9.image.views
             var hashInBytes = BitConverter.GetBytes(hash);
 
             var fullData = Encoding.Unicode.GetBytes(_enc.Data);
+
             Array.Resize(ref fullData, fullData.Length + 4);
             fullData[fullData.Length - 4] = hashInBytes[0];
             fullData[fullData.Length - 3] = hashInBytes[1];
             fullData[fullData.Length - 2] = hashInBytes[2];
             fullData[fullData.Length - 1] = hashInBytes[3];
             byte[] encryptedText = aes.Encrypt(fullData);
-            var embending = new ARGBImageEmbending();
-            var embedBitmap = embending.Embending(model, encryptedText);
-            embedBitmap.Save(_enc.OutPath);
-
-            MessageBox.Show("Your text has been successfully inserted into the image");
+            return encryptedText;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

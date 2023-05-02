@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPF_9.image.service;
 using WPF_9.security.models;
 using WPF_9.security.service;
 using WPF_9.video.service;
@@ -68,25 +69,26 @@ namespace WPF_9.video.views
 
         private void DecryptButton_Click(object sender, RoutedEventArgs e)
         {
-            if(_dec.InPath == null)
+            if (_dec.InPath == null)
             {
                 MessageBox.Show("Choose a video to decode");
                 return;
             }
-
-            var encDataBytes = FFmpegVideo_v2.UnEmbending(_dec.InPath);
-            var aesModel = Aes256Model.Load("configs\\appconfig.json");
-            aesModel.Encoding = _dec.Encoding;
-            var aes = new Aes256(aesModel);
-            var dataBytes = aes.Decrypt(encDataBytes);
+            ARGBImageEmbending emb;
+            byte[] encDataBytes;
+            Unembending(out emb, out encDataBytes);
+            encDataBytes = emb.RemoveStopBytes(encDataBytes);
+            Aes256 aes;
+            byte[] dataBytes;
+            Decryption(encDataBytes, out aes, out dataBytes);
             var oneNumberSizeInBytes = new byte[4];
             Array.Copy(dataBytes, dataBytes.Length - 4, oneNumberSizeInBytes, 0, 4);
             var hashFromFile = BitConverter.ToInt32(oneNumberSizeInBytes, 0);
 
             Array.Resize(ref dataBytes, dataBytes.Length - 4);
 
-            var dataHash =  aes.GenHashCode(dataBytes);
-            if(hashFromFile != dataHash)
+            var dataHash = aes.GenHashCode(dataBytes);
+            if (hashFromFile != dataHash)
             {
                 MessageBox.Show("The file is corrupted. Hashes do not match!");
                 return;
@@ -95,6 +97,20 @@ namespace WPF_9.video.views
             _dec.Data = _dec.Encoding.GetString(dataBytes);
 
             DecryptedTextBox.Text = _dec.Data;
+        }
+
+        private void Decryption(byte[] encDataBytes, out Aes256 aes, out byte[] dataBytes)
+        {
+            var aesModel = Aes256Model.Load("configs\\appconfig.json");
+            aesModel.Encoding = _dec.Encoding;
+            aes = new Aes256(aesModel);
+            dataBytes = aes.Decrypt(encDataBytes);
+        }
+
+        private void Unembending(out ARGBImageEmbending emb, out byte[] encDataBytes)
+        {
+            emb = new ARGBImageEmbending();
+            encDataBytes = FFmpegVideo_v2.UnEmbending(_dec.InPath);
         }
     }
 
