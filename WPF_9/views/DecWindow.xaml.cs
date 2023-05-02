@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_9.security.models;
 using WPF_9.security.service;
-using WPF_9.videos.service;
+using WPF_9.video.service;
 using WPF_9.views.viewsmodels;
 
 namespace WPF_9.views
