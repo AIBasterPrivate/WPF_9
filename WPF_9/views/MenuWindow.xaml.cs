@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_9.views;
+using WPF_9.video.views;
 using WPF_9.views.viewsmodels;
+using WPF_9.image.views;
 
 namespace WpfApp7.views
 {
@@ -41,6 +43,18 @@ namespace WpfApp7.views
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void DecImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var decrypt = new ImageDecWindow(new MenuWindowModel() { MenuWindow = this });
+            decrypt.Show();
+        }
+
+        private void EncImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var encrypt = new ImageEncWindow(new MenuWindowModel() { MenuWindow = this });
+            encrypt.Show();
         }
     }
 }

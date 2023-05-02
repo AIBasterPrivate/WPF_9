@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp7.views"
         mc:Ignorable="d"
-        Title="MenuViewWindow" Height="481" Width="356">
-    <Grid Margin="0,0,0,-39">
-        <Button x:Name="EncButton" Content="Encrypt" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="EncButton_Click" FontSize="48" FontWeight="Bold"/>
-        <Button x:Name="DecButton" Content="Decrypt" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="DecButton_Click" FontSize="48" FontWeight="Bold"/>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Center" Margin="0,316,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="ExitButton_Click" FontSize="48" FontWeight="Bold"/>
+        Title="MenuViewWindow" Height="499" Width="845">
+    <Grid Margin="0,0,0,-6">
+        <Button x:Name="EncButton" Content="Encrypt video" HorizontalAlignment="Left" Margin="33,30,0,0" VerticalAlignment="Top" Height="80" Width="374" Click="EncButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="DecButton" Content="Decrypt video" HorizontalAlignment="Left" Margin="33,140,0,0" VerticalAlignment="Top" Height="81" Width="374" Click="DecButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Center" Margin="0,327,0,0" VerticalAlignment="Top" Height="108" Width="216" Click="ExitButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="EncImageButton" Content="Encrypt image" HorizontalAlignment="Left" Margin="431,30,0,0" VerticalAlignment="Top" Height="80" Width="374" Click="EncImageButton_Click" FontSize="48" FontWeight="Bold"/>
+        <Button x:Name="DecImageButton" Content="Decrypt image" HorizontalAlignment="Left" Margin="431,140,0,0" VerticalAlignment="Top" Height="81" Width="374" Click="DecImageButton_Click" FontSize="48" FontWeight="Bold"/>
 
     </Grid>
 </Window>
