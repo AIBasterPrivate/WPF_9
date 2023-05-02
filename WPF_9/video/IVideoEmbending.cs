@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF_9.videos
+namespace WPF_9.video
 {
     public interface IVideoEmbending
     {

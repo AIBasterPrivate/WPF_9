@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
-using WPF_9.videos.models;
+using WPF_9.video.models;
 
-namespace WPF_9.videos.service
+namespace WPF_9.video.service
 {
     public class FFmpegVideo_v2
     {

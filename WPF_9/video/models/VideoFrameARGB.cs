@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF_9.videos.models
+namespace WPF_9.video.models
 {
     internal class VideoFrameARGB : IImageEmbending
     {
