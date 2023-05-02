@@ -108,26 +108,36 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="views\DecWindow.xaml.cs">
+    <Compile Include="image\IImageEmbending.cs" />
+    <Compile Include="image\IARGBImage.cs" />
+    <Compile Include="image\model\ARGBImageModel.cs" />
+    <Compile Include="image\service\ARGBImageEmbending.cs" />
+    <Compile Include="image\views\ImageDecWindow.xaml.cs">
+      <DependentUpon>ImageDecWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="image\views\ImageEncWindow.xaml.cs">
+      <DependentUpon>ImageEncWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="image\views\models\ImageDecWindowModel.cs" />
+    <Compile Include="image\views\models\ImageEncWindowModel.cs" />
+    <Compile Include="video\views\DecWindow.xaml.cs">
       <DependentUpon>DecWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="security\IEncryptionService.cs" />
     <Compile Include="security\models\Aes256Model.cs" />
     <Compile Include="security\service\Aes256.cs" />
-    <Compile Include="videos\IImageEmbending.cs" />
-    <Compile Include="videos\IVideoEmbending.cs" />
-    <Compile Include="videos\models\FFmpegVideoModel.cs" />
-    <Compile Include="videos\models\VideoFrameARGB.cs" />
-    <Compile Include="videos\service\FFmpegVideo_v2.cs" />
-    <Compile Include="views\EncWindow.xaml.cs">
+    <Compile Include="video\IVideoEmbending.cs" />
+    <Compile Include="video\models\FFmpegVideoModel.cs" />
+    <Compile Include="video\service\FFmpegVideo_v2.cs" />
+    <Compile Include="video\views\EncWindow.xaml.cs">
       <DependentUpon>EncWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\viewsmodels\DecWindowModel.cs" />
-    <Compile Include="views\viewsmodels\EncWindowModel.cs" />
-    <Compile Include="views\viewsmodels\MenuWindowModel.cs" />
+    <Compile Include="video\views\models\DecWindowModel.cs" />
+    <Compile Include="video\views\models\EncWindowModel.cs" />
+    <Compile Include="views\MenuWindowModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.xaml.cs">
@@ -166,7 +176,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="views\DecWindow.xaml">
+    <Page Include="image\views\ImageDecWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="image\views\ImageEncWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="video\views\DecWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,7 +192,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\EncWindow.xaml">
+    <Page Include="video\views\EncWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

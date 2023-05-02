@@ -15,9 +15,10 @@ using System.Windows.Shapes;
 using WPF_9.security.models;
 using WPF_9.security.service;
 using WPF_9.video.service;
+using WPF_9.video.views.models;
 using WPF_9.views.viewsmodels;
 
-namespace WPF_9.views
+namespace WPF_9.video.views
 {
     /// <summary>
     /// Interaction logic for DecWindow.xaml

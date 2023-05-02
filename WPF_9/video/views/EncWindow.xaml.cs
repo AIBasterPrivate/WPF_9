@@ -6,8 +6,9 @@ using WPF_9.video.service;
 using WPF_9.security.models;
 using WPF_9.security.service;
 using WPF_9.views.viewsmodels;
+using WPF_9.video.views.models;
 
-namespace WPF_9.views
+namespace WPF_9.video.views
 {
     /// <summary>
     /// Interaction logic for EncWindow.xaml
