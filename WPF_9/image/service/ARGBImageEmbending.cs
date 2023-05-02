@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace WPF_9.image.service
 {
-    internal class ARGBImageEmbending : IEmbending
+    internal class ARGBImageEmbending : IImageEmbending
     {
         static readonly byte[] stopBytes = { 0, 0 };// same to '\0'
 

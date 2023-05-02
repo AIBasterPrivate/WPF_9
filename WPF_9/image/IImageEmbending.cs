@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WPF_9.image
 {
-    internal interface IEmbending
+    internal interface IImageEmbending
     {
         Bitmap Embending(IARGBImage image,byte[] data);
         byte[] UnEmbending(IARGBImage image);

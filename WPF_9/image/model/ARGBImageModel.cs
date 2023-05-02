@@ -7,7 +7,7 @@ using System.Windows.Media.Media3D;
 
 namespace WPF_9.image.model
 {
-    internal class ARGBImageModel : IARGBImage
+    public class ARGBImageModel : IARGBImage
     {
         private Bitmap _bitmap;
         public ARGBImageModel(int width, int height)
