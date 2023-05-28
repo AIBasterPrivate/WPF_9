@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="EncWindow" Height="450" Width="622">
     <Grid>
-        <Button x:Name="FindVideoFile" Content="Open video" HorizontalAlignment="Left" Margin="30,26,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="FindVideoFile_Click"/>
+        <Button x:Name="FindVideoFile" Content="Open file" HorizontalAlignment="Left" Margin="30,26,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="FindVideoFile_Click"/>
         <TextBox x:Name="UserDataInputTextBox" HorizontalAlignment="Left" Margin="245,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="353" Height="382" FontSize="18"/>
-        <Button x:Name="EncryptButton" Content="Encrypt into video" HorizontalAlignment="Left" Margin="30,172,0,0" VerticalAlignment="Top" Height="118" Width="169" Click="EncryptButton_Click"/>
+        <Button x:Name="EncryptButton" Content="Encrypt" HorizontalAlignment="Left" Margin="30,172,0,0" VerticalAlignment="Top" Height="118" Width="169" Click="EncryptButton_Click"/>
         <Button x:Name="ExitButton" Content="Close" HorizontalAlignment="Left" Margin="30,318,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="ExitButton_Click"/>
 
     </Grid>

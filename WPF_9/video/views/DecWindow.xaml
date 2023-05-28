@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="OpenFileButton" Content="Open file" HorizontalAlignment="Left" Margin="24,26,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="OpenFileButton_Click"/>
         <TextBox x:Name="DecryptedTextBox" HorizontalAlignment="Left" Margin="220,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="360" FontSize="18"/>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="24,337,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="ExitButton_Click"/>
+        <Button x:Name="ExitButton" Content="Close" HorizontalAlignment="Left" Margin="24,337,0,0" VerticalAlignment="Top" Height="49" Width="169" Click="ExitButton_Click"/>
         <Button x:Name="DecryptButton" Content="Decrypt" HorizontalAlignment="Left" Margin="24,185,0,0" VerticalAlignment="Top" Height="118" Width="169" Click="DecryptButton_Click"/>
     </Grid>
 </Window>
